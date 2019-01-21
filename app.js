@@ -33,6 +33,8 @@ app.set("view engine","ejs");
 
 
 //路由
-app.use("/",require("./router/index.js"));
+app.use("/",require("./router/index"));
 
-app.use("/admin",require("./router/admin.js"));
+app.use("/admin",require("./router/admin"));
+
+app.use('/api',require('./router/api'));

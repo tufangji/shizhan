@@ -1,14 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>注册</title>
-    <meta name="keywords" content="关键词">
-    <meta name="description" content="描述">
-    <meta name="author" content="tfj">
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
-</head>
+<% include header.ejs %>
 <body>
     <form class="layui-form" action="">
         <div class="layui-form-item">
@@ -48,11 +38,7 @@
             url: "/reg",
             data: data.field,
             success: function (data) {
-                layer.alert(data.msg,function(){   //弹窗后点击确定运行的回调函数
-                  if(data.code===0){
-                    location.href="/";
-                  }
-                });
+                layer.alert(data.msg);
             }
         });
         return false;

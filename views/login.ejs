@@ -1,14 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>登陆</title>
-    <meta name="keywords" content="关键词">
-    <meta name="description" content="描述">
-    <meta name="author" content="tfj">
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
-</head>
+<% include header.ejs %>
 <body>
     <%if(login){%>
     已经登陆
@@ -54,8 +44,9 @@
             success: function (data) {
                 layer.alert(data.msg,function () {
                   if(data.code===0){
-                    location.href="/";
+                    return location.href="/admin/user";
                   }
+                  location.reload()
                 });
             }
         });

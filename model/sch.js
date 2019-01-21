@@ -31,10 +31,14 @@ const userSchema = new mongoose.Schema({
 const taskSchema=new mongoose.Schema({
     title:{type:String},//标题
     content:{type:String},//内容
-    author:{type:String},//作者
+    author:{type:mongoose.Schema.Types.ObjectId,ref:"user"},//作者
     receiver:{type:[{type:mongoose.Schema.Types.ObjectId,ref:"user"}]},  //接受者
-    time:{type:String},         //发布时间
-    num:{type:Number}           //接受者上限
+    time:{type:String,default:new Date()},         //发布时间
+    expiration:{type:String},   //截止日期
+    num:{type:Number} ,          //接受者上限
+    award:{type:String},        //奖励
+    difficulty:{type:String}  ,  //难度
+    finish:{type:Boolean,default:false},//是否完成
 });
 
 
