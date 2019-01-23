@@ -38,7 +38,13 @@
             url: "/reg",
             data: data.field,
             success: function (data) {
-                layer.alert(data.msg);
+                layer.alert(data.msg,function(){
+                  if(data.code===0){
+                    location.href="/";
+                  }else{
+                    location.reload();
+                  }
+                });
             }
         });
         return false;

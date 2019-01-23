@@ -1,0 +1,104 @@
+<% include header.ejs %>
+<style>
+.layui-rate {
+    padding: 0px 5px 2px 0;
+    font-size: 0;
+}
+.layui-row{
+    line-height:70px;
+}
+</style>
+<body>
+
+    <div class="layui-bg-blue">
+        <div class="layui-header layui-main">
+            <ul class="layui-nav layui-bg-blue">
+                <li class="layui-nav-item layui-this"><a href="/">任务大厅</a></li>
+            </ul>
+            <ul class="layui-nav layui-bg-blue layui-layout-right ">
+                <% if (login){ %>
+                <li class="layui-nav-item">当前用户:
+                    <%- user.username %>
+                </li>
+
+                <% if (user.level >= 10) { %>
+                <li class="layui-nav-item"><a href="/admin/user">后台管理</a></li>
+                <% } %>
+
+                <li class="layui-nav-item"><a href="/logout">退出</a></li>
+                <% } else { %>
+                <li class="layui-nav-item"><a href="/login">登陆</a></li>
+                <li class="layui-nav-item"><a href="/reg">注册</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-main" style="padding-top: 15px;">
+        <h1>
+            <%-data.title%>
+        </h1>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="grid-demo grid-demo-bg1">发布人：
+                    <%-data.author.username%>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="grid-demo grid-demo-bg1">发布时间：
+                    <%-new Date(data.time).toLocaleString()%>
+                </div>
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+            <legend>任务详情</legend>
+        </fieldset>
+        <!-- 已接取人数: 4 人    最高接取人数: 3 人    任务限时: 2019-01-05 之前    任务难度:     任务奖励: 摸摸哒 -->
+        <div class="layui-row" >
+            <div class="layui-col-md2">
+                <div class="grid-demo grid-demo-bg1">已接取人数：
+                    <%-data.receiver.length%>人</div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="grid-demo grid-demo-bg1">最高接取人数：
+                    <%-data.num%>人</div>
+            </div>
+            <div class="layui-col-md3">
+                <div class="grid-demo grid-demo-bg1">截止日期：
+                    <%-new Date(data.expiration).toLocaleString()%>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <div class="grid-demo grid-demo-bg1">任务难度：<div  id='pf'></div>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="grid-demo grid-demo-bg1">任务奖励：<%-data.award%>
+                </div>
+            </div>
+        </div>
+        <div>
+            <%if(!data.finish && data.receiver.length < data.num && new Date() < new Date(data.time)) {%>
+                <button class="layui-btn layui-btn-normal">立即接取</button>
+            <%} else {%>
+                <button class="layui-btn layui-btn-normal layui-btn-disabled">不能接取</button>
+            <%}%>
+        </div>
+
+    </div>
+
+
+    <script>
+        layui.use(['rate'], function () {
+            var rate = layui.rate;
+            rate.render({
+                elem: '#pf',
+                value: 2, //初始值
+                readonly:true
+            })
+
+        })
+    </script>
+
+</body>
+
+</html>

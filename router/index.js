@@ -45,6 +45,8 @@ router.get("/reg", (req, res) => {
                 code: 0,
                 msg: "注册成功"
             })
+        }).catch(err=>{
+            res.send({code:1,msg:'注册失败'})
         })
     })
 })
@@ -160,6 +162,20 @@ router.post('/finished', (req, res) => {
 router.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");
+})
+
+router.get('/task/:id',(req,res)=>{
+    let id=req.params.id;
+    task.findOne({_id:id}).populate('author').then(data=>{
+        res.render('detail',{
+            login:req.session.login,
+            title:"任务详情-"+data.title,
+            user:req.session.user,
+            data:data
+        })
+    }).catch(err=>{
+        console.log(err);
+    })
 })
 
 
