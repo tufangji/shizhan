@@ -77,8 +77,8 @@
             </div>
         </div>
         <div>
-            <%if(!data.finish && data.receiver.length < data.num && new Date() < new Date(data.time)) {%>
-                <button class="layui-btn layui-btn-normal">立即接取</button>
+            <%if(!data.finish && data.receiver.length < data.num && new Date().getTime() < new Date(data.expiration).getTime()&&(user&&!data.receiver.includes(user._id))&&(user&&user._id!==data.author)) {%>
+                <button class="layui-btn layui-btn-normal" id='accept'>立即接取</button>
             <%} else {%>
                 <button class="layui-btn layui-btn-normal layui-btn-disabled">不能接取</button>
             <%}%>
@@ -90,13 +90,29 @@
     <script>
         layui.use(['rate'], function () {
             var rate = layui.rate;
+            var $=layui.$;
             rate.render({
                 elem: '#pf',
                 value: 2, //初始值
                 readonly:true
             })
-
+            $('#accept').on('click',function(){
+                $.ajax({
+                    url:'/accept',
+                    data:{
+                        task_id: ,
+                        user_id:
+                    },
+                    method:'post',
+                    success(){
+                        alert(1);
+                    }
+                })
+                
+            })
         })
+
+        
     </script>
 
 </body>
